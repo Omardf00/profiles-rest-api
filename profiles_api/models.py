@@ -20,14 +20,14 @@ class UserProfileManager(BaseUserManager):
 
         return user
 
-    def create_super_user(self, email, name, password):
+    def create_superuser(self, email, name, password):
         """Create and save a new superuser"""
         """No necesito pasar self aquí porque ya se pasa una evz cuando se define la función de crear ususario"""
         user = self.create_user(email, name, password)
 
         """is_superUser se crea automáticamente como uno de los atributos de la clase user gracias a PermissionsMixin"""
         user.is_superuser = True
-        iser.is_staff = True
+        user.is_staff = True
         user.save(using=self._db)
 
         return user
@@ -52,10 +52,6 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         """Retrieve a shorter version of the name"""
         return self.name
-
-    def get_email(self):
-        """Retrieve the email"""
-        return self.email
 
     """Esto se hace para que cuando hacemos el toSring del objeto, se nos devuelva un campo representativo"""
     def __str__(self):
